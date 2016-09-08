@@ -223,11 +223,11 @@ class DjangoI18nBlocktransTest(DjangoI18nTestBase):
             "Singular{% plural %}Plural {{ counter }}{% endblocktrans %}"
         )
 
-        self.assertEqual('count translated', template1.render({'counter': 123}))
+        self.assertEqual('count translated', template1.render({'foo': 123}))
         self.ngettext.assert_called_with('Singular', 'Plural %(counter)s', 123)
-        self.assertEqual('count translated', template2.render({'counter': 123}))
+        self.assertEqual('count translated', template2.render({'foo': 123}))
         self.ngettext.assert_called_with('Singular', 'Plural %(counter)s', 123)
-        self.assertEqual('count alt translated', template3.render({'counter': 123}))
+        self.assertEqual('count alt translated', template3.render({'foo': 123}))
         self.npgettext.assert_called_with('mycontext', 'Singular', 'Plural %(counter)s', 123)
 
     def test_as_var(self):
