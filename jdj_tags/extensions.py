@@ -155,6 +155,7 @@ class DjangoI18n(Extension):
             parser.stream.expect(lexer.TOKEN_ASSIGN)
             value = parser.parse_expression(False)
             count = (name, value)
+            with_vars[name] = value
 
         if parser.stream.skip_if('name:context'):
             context = parser.stream.expect(lexer.TOKEN_STRING).value
@@ -263,12 +264,12 @@ class DjangoI18n(Extension):
         else:
             if context is None:
                 return ungettext(
-                    force_text(singular), force_text(plural), trans_vars[count_var]
+                    force_text(singular), force_text(plural), int(trans_vars[count_var])
                 ) % trans_vars
             else:
                 return npgettext(
                     force_text(context), force_text(singular), force_text(plural),
-                    trans_vars[count_var]
+                    int(trans_vars[count_var])
                 ) % trans_vars
 
     def parse(self, parser):
