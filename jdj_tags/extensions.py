@@ -200,11 +200,6 @@ class DjangoI18n(Extension):
             for key, val in with_vars.items()
         ]
 
-        if count is not None:
-            trans_vars.append(
-                nodes.Pair(nodes.Const(count[0]), count[1], lineno=lineno)
-            )
-
         trans_vars.extend(
             nodes.Pair(
                 nodes.Const(key),
